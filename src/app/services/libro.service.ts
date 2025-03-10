@@ -25,7 +25,7 @@ export class LibroService {
       titulo: libro.titulo,
       autor: libro.autor,
       editorial: libro.editorial,
-      anioPublicacion: libro.anio_publicacion
+      anio_publicacion: libro.anio_publicacion
     };
     addDoc(librosCollection, libroData);
   }
@@ -37,7 +37,7 @@ export class LibroService {
       titulo: libro.titulo,
       autor: libro.autor,
       editorial: libro.editorial,
-      anioPublicacion: libro.anio_publicacion
+      anio_publicacion: libro.anio_publicacion
     })
   }
 
