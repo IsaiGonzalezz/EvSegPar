@@ -1,62 +1,70 @@
-<div style="margin: 26px">
-    <h1>Catálogo de productos</h1>
-    @if (productos.length>0) {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Seleccionar</th>
-                <th>Eliminar</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (producto of productos; track producto.id) {
-            <tr>
-                <td>{{ producto.id }}</td>
-                <td>{{ producto.descripcion }}</td>
-                <td>{{ producto.precio }}</td>
-                <td>
-                    <button type="button" class="btn btn-primary" (click)="seleccionarProducto(producto)">
-                        Seleccionar
+<div class="contenedor">
+    <!-- Formulario para dar de alta productos -->
+    <div class="formulario">
+        <h1>Catálogo de productos</h1>
+        <h4>Alta de productos</h4>
+        <form #productoForm="ngForm">
+            <p>
+                <label>Descripción</label>
+                <input type="text" [(ngModel)]="producto.descripcion" name="descripcion" required minlength="1" maxlength="100" #descripcionInput="ngModel" />
+                @if (descripcionInput.invalid && descripcionInput.touched) {
+                    <small class="error">La descripción es obligatoria y debe tener entre 1 y 100 caracteres.</small>
+                }
+            </p>
+            <p>
+                <label>Precio</label>
+                <input type="number" [(ngModel)]="producto.precio" name="precio" required min="0.1" #precioInput="ngModel" />
+                @if (precioInput.invalid && precioInput.touched) {
+                    <small class="error">El precio debe estar entre 1000 y 2099.</small>
+                }
+            </p>
+
+            <div class="botones">
+                <!-- Botón Insertar solo si no está en modo edición -->
+                <button type="button" class="btn btn-primary" (click)="insertarProducto()" [disabled]="productoForm.invalid || editando">
+                    Insertar
+                </button>
+
+                <!-- Mostrar botones de modificar, eliminar y cancelar solo en modo edición -->
+                @if (editando) {
+                    <button type="button" class="btn btn-warning" (click)="updateProducto()" [disabled]="productoForm.invalid">
+                        Modificar
                     </button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger" (click)="eliminarProductos(producto.id)">
+                    <button type="button" class="btn btn-danger" (click)="deleteProducto()">
                         Eliminar
                     </button>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-    }@else {
-    <p>No hay productos</p>
-    }
-    <div class="col-sm-4">
-        <p>
-            ID: <input type="text" class="form-control" [(ngModel)]="producto.id" />
-        </p>
-        <p>
-            Descripción:
-            <input type="text" class="form-control" [(ngModel)]="producto.descripcion" />
-        </p>
-        <p>
-            Precio:
-            <input type="text" class="form-control" [(ngModel)]="producto.precio" />
-        </p>
-        <p>
-            <button type="button" class="btn btn-primary" (click)="agregarProductos()">
-                Agregar
-            </button>
-        </p>
-        <p>
-            <button type="button" class="btn btn-success" (click)="modificarProducto()">
-                Modificar
-            </button>
-        </p>
+                    <button type="button" class="btn btn-secondary" (click)="resetFormulario()">
+                        Cancelar
+                    </button>
+                }
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabla de productos -->
+    <div class="tabla">
+        <h4>Listado de productos</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Seleccionar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (producto of productos; track producto.id) {
+                    <tr>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>{{ producto.precio }}</td>
+                        <td>
+                            <button type="button" class="btn btn-success" (click)="selectProducto(producto)">
+                                Seleccionar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-
-<router-outlet></router-outlet>

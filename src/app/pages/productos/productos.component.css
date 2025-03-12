@@ -1,0 +1,131 @@
+/* Contenedor general en flexbox */
+.contenedor {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+}
+
+.formulario, .tabla {
+    background-color: #f4f9ff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Formulario alineado a la izquierda */
+.formulario {
+    flex: 1;
+    max-width: 350px;
+}
+
+/* Tabla alineada a la derecha */
+.tabla {
+    flex: 2;
+}
+
+/* Encabezados */
+h1, h4 {
+    color: #1e3a8a;
+    font-weight: bold;
+}
+
+label {
+    color: #1e40af;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1.5px solid #93c5fd;
+    border-radius: 8px;
+    background-color: #f0f9ff;
+    transition: border 0.3s ease;
+}
+
+input:focus {
+    border-color: #1e40af;
+    outline: none;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e7ff;
+}
+
+th {
+    background-color: #1e40af;
+    color: white;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #e0f2fe;
+}
+
+/* Botones */
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.btn-primary {
+    background-color: #2563eb;
+}
+
+.btn-warning {
+    background-color: #f59e0b;
+}
+
+.btn-danger {
+    background-color: #dc2626;
+}
+
+.btn-success {
+    background-color: #10b981;
+}
+
+/* Efecto hover en botones */
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-warning:hover {
+    background-color: #d97706;
+}
+
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+.btn-success:hover {
+    background-color: #059669;
+}
+
+/* Errores */
+.error {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 5px;
+}

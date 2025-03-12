@@ -1,0 +1,88 @@
+<div class="contenedor">
+    <!-- Formulario para dar de alta artes -->
+    <div class="formulario">
+        <h1>Catálogo de arte</h1>
+        <h4>Alta de arte</h4>
+        <form #arteForm="ngForm">
+            <p>
+                <label>Artículo</label>
+                <input type="text" [(ngModel)]="arte.articulo" name="articulo" required minlength="3" maxlength="100" #articuloInput="ngModel" />
+                @if (articuloInput.invalid && articuloInput.touched) {
+                    <small class="error">El nombre del artículo es obligatorio y debe tener entre 3 y 100 caracteres.</small>
+                }
+            </p>
+            <p>
+                <label>Descripción</label>
+                <input type="text" [(ngModel)]="arte.descripcion" name="descripcion" required minlength="5" maxlength="200" #descripcionInput="ngModel" />
+                @if (descripcionInput.invalid && descripcionInput.touched) {
+                    <small class="error">La descripción es obligatoria y debe tener entre 5 y 200 caracteres.</small>
+                }
+            </p>
+            <p>
+                <label>Gama</label>
+                <input type="text" [(ngModel)]="arte.gama" name="gama" required minlength="3" maxlength="50" #gamaInput="ngModel" />
+                @if (gamaInput.invalid && gamaInput.touched) {
+                    <small class="error">La gama es obligatoria y debe tener entre 3 y 50 caracteres.</small>
+                }
+            </p>
+            <p>
+                <label>Precio</label>
+                <input type="number" [(ngModel)]="arte.precio" name="precio" required min="0.1" #precioInput="ngModel" />
+                @if (precioInput.invalid && precioInput.touched) {
+                    <small class="error">El precio debe ser mayor que 0.</small>
+                }
+            </p>
+
+            <div class="botones">
+                <!-- Botón Insertar solo si no está en modo edición -->
+                <button type="button" class="btn btn-primary" (click)="insertarArte()" [disabled]="arteForm.invalid || editando">
+                    Insertar
+                </button>
+
+                <!-- Mostrar botones de modificar, eliminar y cancelar solo en modo edición -->
+                @if (editando) {
+                    <button type="button" class="btn btn-warning" (click)="updateArte()" [disabled]="arteForm.invalid">
+                        Modificar
+                    </button>
+                    <button type="button" class="btn btn-danger" (click)="deleteArte()">
+                        Eliminar
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="resetFormulario()">
+                        Cancelar
+                    </button>
+                }
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabla de artes -->
+    <div class="tabla">
+        <h4>Listado de arte</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Artículo</th>
+                    <th>Descripción</th>
+                    <th>Gama</th>
+                    <th>Precio</th>
+                    <th>Seleccionar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (arte of artes; track arte.id) {
+                    <tr>
+                        <td>{{ arte.articulo }}</td>
+                        <td>{{ arte.descripcion }}</td>
+                        <td>{{ arte.gama }}</td>
+                        <td>{{ arte.precio }}</td>
+                        <td>
+                            <button type="button" class="btn btn-success" (click)="selectArte(arte)">
+                                Seleccionar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
